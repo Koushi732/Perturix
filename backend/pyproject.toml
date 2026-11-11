@@ -1,0 +1,54 @@
+[project]
+name = "perturix-backend"
+version = "0.1.0"
+description = "Perturix Adaptive Image Immunization Framework Backend"
+authors = [{ name = "Lead Backend Architect", email = "architect@perturix.org" }]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn[standard]>=0.23.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "python-multipart>=0.0.32",
+    "python-magic>=0.4.27",
+    "python-magic-bin ; sys_platform == 'win32'",
+    "Pillow>=10.0.0",
+    "aiofiles>=25.1.0",
+    "torch>=2.13.0",
+    "numpy>=2.4.6",
+    "torchmetrics>=1.3.0",
+    "lpips>=0.1.4",
+    "scikit-image>=0.22.0",
+    "sqlalchemy>=2.0.51",
+    "alembic>=1.18.5",
+    "opencv-python-headless>=5.0.0.93",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "mypy>=2.3.0",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.0",
+]
+
+[tool.mypy]
+explicit_package_bases = true
+
+[[tool.mypy.overrides]]
+module = [
+    "PIL.*",
+    "torch.*",
+    "numpy.*",
+    "aiofiles.*",
+]
+ignore_missing_imports = true

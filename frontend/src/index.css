@@ -1,3 +1,199 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-dark-900: #09090b;
+  --color-dark-800: #121214;
+  --color-dark-700: #18181b;
+  --color-dark-600: #27272a;
+  --color-dark-500: #3f3f46;
+
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+
+  --color-accent-400: #a78bfa;
+  --color-accent-500: #8b5cf6;
+  --color-accent-600: #7c3aed;
+
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+
+  --color-rose-400: #fb7185;
+  --color-rose-500: #f43f5e;
+  --color-rose-600: #e11d48;
+
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Standardizing radius to match tokens */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  /* Limiting animations */
+  --default-transition-duration: 200ms;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+
+@layer base {
+  body {
+    background-color: theme('colors.slate.50', #f8fafc);
+    color: theme('colors.slate.700', #334155);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .dark body {
+    background-color: var(--color-dark-900);
+    color: var(--color-slate-300);
+  }
+}
+
+/* Glassmorphism Classes */
+@utility glass-panel {
+  background-color: color-mix(in srgb, white 80%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, black 5%, transparent);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+
+  @variant dark {
+    background-color: color-mix(in srgb, var(--color-dark-800) 80%, transparent);
+    border: 1px solid color-mix(in srgb, white 5%, transparent);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@utility glass-card {
+  background-color: color-mix(in srgb, white 50%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in srgb, black 5%, transparent);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: all 200ms ease;
+
+  @variant dark {
+    background-color: color-mix(in srgb, var(--color-dark-700) 50%, transparent);
+    border: 1px solid color-mix(in srgb, white 5%, transparent);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.glass-card:hover {
+  background-color: color-mix(in srgb, white 80%, transparent);
+  border-color: color-mix(in srgb, black 10%, transparent);
+}
+.dark .glass-card:hover {
+  background-color: color-mix(in srgb, var(--color-dark-700) 80%, transparent);
+  border-color: color-mix(in srgb, white 10%, transparent);
+}
+
+@utility glass-input {
+  background-color: color-mix(in srgb, white 50%, transparent);
+  border: 1px solid color-mix(in srgb, black 10%, transparent);
+  border-radius: var(--radius-lg);
+  color: theme('colors.slate.700', #334155);
+  transition: all 200ms ease;
+
+  @variant dark {
+    background-color: color-mix(in srgb, var(--color-dark-900) 50%, transparent);
+    border: 1px solid color-mix(in srgb, white 10%, transparent);
+    color: white;
+  }
+}
+
+.glass-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--color-primary-500);
+}
+
+@utility glass-button {
+  background-color: color-mix(in srgb, black 5%, transparent);
+  border: 1px solid color-mix(in srgb, black 5%, transparent);
+  color: theme('colors.slate.700', #334155);
+  border-radius: var(--radius-lg);
+  transition: all 200ms ease;
+  backdrop-filter: blur(4px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+
+  @variant dark {
+    background-color: color-mix(in srgb, white 5%, transparent);
+    border: 1px solid color-mix(in srgb, white 5%, transparent);
+    color: white;
+  }
+}
+
+.glass-button:hover {
+  background-color: color-mix(in srgb, black 10%, transparent);
+}
+.dark .glass-button:hover {
+  background-color: color-mix(in srgb, white 10%, transparent);
+}
+
+@utility glass-button-primary {
+  background-color: var(--color-primary-600);
+  border: 1px solid color-mix(in srgb, var(--color-primary-500) 30%, transparent);
+  color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-primary-500) 20%, transparent);
+  transition: all 200ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.glass-button-primary:hover {
+  background-color: var(--color-primary-500);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: theme('colors.slate.300', #cbd5e1);
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark-600);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: theme('colors.slate.400', #94a3b8);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-dark-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

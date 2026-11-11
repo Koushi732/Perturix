@@ -1,0 +1,10 @@
+{
+    "algorithm": "fgsm",
+    "engine_version": "2.0",
+    "epsilon": 0.005,
+    "image_size": "1280x720",
+    "timestamp": "2026-08-05T22:18:05.623056+00:00",
+    "verification_score": 98.7199653033167,
+    "coverage": 0.9999804496765137,
+    "entropy": 1.0
+}
